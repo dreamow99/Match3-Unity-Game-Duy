@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272930e7007849cab2dbcc3588105628, type: 3}
   m_Name: skinConfig
   m_EditorClassIdentifier: 
-  typeOneSkin: {fileID: 0}
-  typeTwoSkin: {fileID: 0}
-  typeThreeSkin: {fileID: 0}
-  typeFourSkin: {fileID: 0}
-  typeFiveSkin: {fileID: 0}
-  typeSixSkin: {fileID: 0}
-  typeSevenSkin: {fileID: 0}
+  typeOneSkin: {fileID: 21300000, guid: c12cdac060bca1648873faff065f85e8, type: 3}
+  typeTwoSkin: {fileID: 21300000, guid: b3d03f60a408b6149ba58fff7af8beef, type: 3}
+  typeThreeSkin: {fileID: 21300000, guid: a3dbc24d17c9ee04b93384880a8f7f48, type: 3}
+  typeFourSkin: {fileID: 21300000, guid: 3bbd6a925d3f3c44aa3642011798e97a, type: 3}
+  typeFiveSkin: {fileID: 21300000, guid: 23d4fceb15264594fbd2e61365bdeac4, type: 3}
+  typeSixSkin: {fileID: 21300000, guid: e27dc4b27cd098d4cb090fa15c2521a3, type: 3}
+  typeSevenSkin: {fileID: 21300000, guid: d4e64b790654a1f45a578702cbc7475e, type: 3}

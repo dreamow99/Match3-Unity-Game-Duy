@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     private LevelCondition m_levelCondition;
 
+    private eLevelMode currentMode;
+    
     private void Awake()
     {
         State = eStateGame.SETUP;
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
             m_levelCondition.Setup(m_gameSettings.LevelMoves, m_uiMenu.GetLevelConditionView(), this);
         }
 
+        currentMode = mode;
         m_levelCondition.ConditionCompleteEvent += GameOver;
 
         State = eStateGame.GAME_STARTED;
@@ -142,5 +145,11 @@ public class GameManager : MonoBehaviour
             Destroy(m_levelCondition);
             m_levelCondition = null;
         }
+    }
+
+    public void Restart()
+    {
+        ClearLevel();
+        LoadLevel(currentMode);
     }
 }
