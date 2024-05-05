@@ -43,6 +43,8 @@ public class BoardController : MonoBehaviour
 
         m_board = new Board(this.transform, gameSettings);
 
+        m_gameOver = false;
+
         Fill();
     }
 
