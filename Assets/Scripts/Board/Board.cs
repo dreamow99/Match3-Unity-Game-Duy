@@ -155,8 +155,8 @@ public class Board
                 if (!cell.IsEmpty) continue;
 
                 NormalItem item = new NormalItem();
-
-                item.SetType(Utils.GetRandomNormalType());
+                
+                item.SetType(GetRandomTypeDifferentWithAround(cell));
                 item.SetView();
                 item.SetViewRoot(m_root);
 
@@ -164,6 +164,76 @@ public class Board
                 cell.ApplyItemPosition(true);
             }
         }
+    }
+
+    NormalItem.eNormalType GetRandomTypeDifferentWithAround(Cell cell)
+    {
+        List<NormalItem.eNormalType> typesToExclude = new List<NormalItem.eNormalType>();
+        if (cell.NeighbourUp != null)
+        {
+            NormalItem nitem = cell.NeighbourUp.Item as NormalItem;
+            if (nitem != null)
+            {
+                typesToExclude.Add(nitem.ItemType);
+            }
+        }
+        
+        if (cell.NeighbourBottom != null)
+        {
+            NormalItem nitem = cell.NeighbourBottom.Item as NormalItem;
+            if (nitem != null)
+            {
+                typesToExclude.Add(nitem.ItemType);
+            }
+        }
+        
+        if (cell.NeighbourLeft != null)
+        {
+            NormalItem nitem = cell.NeighbourLeft.Item as NormalItem;
+            if (nitem != null)
+            {
+                typesToExclude.Add(nitem.ItemType);
+            }
+        }
+
+        if (cell.NeighbourRight != null)
+        {
+            NormalItem nitem = cell.NeighbourRight.Item as NormalItem;
+            if (nitem != null)
+            {
+                typesToExclude.Add(nitem.ItemType);
+            }
+        }
+        
+        List<int> listTypeCount = new List<int>();
+        List<NormalItem.eNormalType> listType = new List<NormalItem.eNormalType>();
+        
+        for (int x = 0; x < boardSizeX; x++)
+        {
+            for (int y = 0; y < boardSizeY; y++)
+            {
+                NormalItem item = m_cells[x, y].Item as NormalItem;
+                
+                if (item == null)
+                    continue;
+                
+                if (typesToExclude.Contains(item.ItemType))
+                    continue;
+
+                if (listType.Contains(item.ItemType))
+                {
+                    var index = listType.IndexOf(item.ItemType);
+                    listTypeCount[index]++;
+                }
+                else
+                {
+                    listType.Add(item.ItemType);
+                    listTypeCount.Add(1);
+                }
+            }
+        }
+
+        return Utils.GetRandomNormalTypeWith(listType, listTypeCount);
     }
 
     internal void ExplodeAllItems()
