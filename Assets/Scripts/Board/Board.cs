@@ -47,14 +47,23 @@ public class Board
         {
             for (int y = 0; y < boardSizeY; y++)
             {
-                GameObject go = GameObject.Instantiate(prefabBG);
-                go.transform.position = origin + new Vector3(x, y, 0f);
-                go.transform.SetParent(m_root);
+                var cellXY = m_cells[x, y];
+                if (cellXY == null)
+                {
+                    GameObject go = GameObject.Instantiate(prefabBG);
+                    go.transform.position = origin + new Vector3(x, y, 0f);
+                    go.transform.SetParent(m_root);
 
-                Cell cell = go.GetComponent<Cell>();
-                cell.Setup(x, y);
+                    cellXY = go.GetComponent<Cell>();
+                    cellXY.Setup(x, y);
 
-                m_cells[x, y] = cell;
+                    m_cells[x, y] = cellXY;
+                }
+                else
+                {
+                    cellXY.gameObject.SetActive(true);
+                    cellXY.Setup(x, y);
+                }
             }
         }
 
@@ -669,8 +678,7 @@ public class Board
                 Cell cell = m_cells[x, y];
                 cell.Clear();
 
-                GameObject.Destroy(cell.gameObject);
-                m_cells[x, y] = null;
+                cell.gameObject.SetActive(false);
             }
         }
     }
