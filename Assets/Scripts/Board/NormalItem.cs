@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NormalItem : Item
 {
+    private static string skinConfigName = "skinConfig";
     public enum eNormalType
     {
         TYPE_ONE,
@@ -21,7 +22,7 @@ public class NormalItem : Item
     {
         ItemType = type;
     }
-
+    
     protected override string GetPrefabName()
     {
         string prefabname = string.Empty;
@@ -58,5 +59,22 @@ public class NormalItem : Item
         NormalItem it = other as NormalItem;
 
         return it != null && it.ItemType == this.ItemType;
+    }
+
+    public override void SetView()
+    {
+        base.SetView();
+
+        var spriteConfig = Resources.Load<NormalItemSkin>(skinConfigName);
+        
+        if (spriteConfig == null)
+            return;
+        
+        var spriteRenderer = View.GetComponent<SpriteRenderer>();
+        
+        if (spriteRenderer == null)
+            return;
+
+        spriteRenderer.sprite = spriteConfig.GetSkin(ItemType);
     }
 }
